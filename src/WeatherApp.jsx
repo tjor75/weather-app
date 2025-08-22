@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import owmService from "./services/owm-service.js";
 
 function WeatherApp() {
   const [currentWeather, setCurrentWeather] = useState(null);
@@ -8,7 +9,10 @@ function WeatherApp() {
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    // Fetch current weather and forecast data
+    const lon = selectedCity.coord.lon;
+    const lat = selectedCity.coord.lat;
+
+    setCurrentWeather(async () => await owmService.getWeatherByCoordAsync(lon, lat));
   }, [selectedCity]);
 
   const handleCitySearch = (city) => {
