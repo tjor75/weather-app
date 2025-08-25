@@ -2,12 +2,12 @@ import { getCoordFromString } from "../helpers/validation-helper";
 import { fetchEndpoint } from "../utils/owm";
 
 export const getWeatherByCoordAsync = async (coord) => {
-    const response = await fetchEndpoint("/weather", coord);
+    const response = await fetchEndpoint("/data/2.5/weather", coord);
     return await response.json();
 }
 
 export const getWeatherByCityAsync = async (city) => {
-    const response = await fetchEndpoint("/weather", { q: city });
+    const response = await fetchEndpoint("/data/2.5/weather", { q: city });
     return await response.json();
 }
 

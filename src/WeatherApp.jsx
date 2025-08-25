@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import * as owmService from "./services/owm-service.js";
+import CurrentWeather from "./components/CurrentWeather/index.jsx";
+import HourlyForecast from "./components/HourlyForecast/index.jsx";
+import "react-loading-skeleton/dist/skeleton.css";
 
 function WeatherApp() {
   const [currentWeather, setCurrentWeather] = useState(null);
@@ -32,7 +35,12 @@ function WeatherApp() {
   };
 
   return (
-    <div className="weather-app">{/* Render weather app components */}</div>
+    <div className="weather-app">
+      <div>
+        <CurrentWeather weatherData={currentWeather} />
+        <HourlyForecast forecastData={hourlyForecast} />
+      </div>
+    </div>
   );
 }
 

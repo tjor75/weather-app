@@ -1,4 +1,4 @@
-import owmConfig from "../configs/oWM-config";
+import owmConfig from "../configs/owm-config";
 
 const BASE_URL = "https://api.openweathermap.org";
 
