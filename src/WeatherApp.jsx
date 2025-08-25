@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import owmService from "./services/owm-service.js";
+import * as owmService from "./services/owm-service.js";
 
 function WeatherApp() {
   const [currentWeather, setCurrentWeather] = useState(null);
