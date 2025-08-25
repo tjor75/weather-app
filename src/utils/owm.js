@@ -6,7 +6,7 @@ const generateURL = async (endpoint, paramsObj) => {
     const searchParams = new URLSearchParams();
 
     searchParams.append("appid", owmConfig.API_KEY);
-    for (const paramsObjKey of paramsObj)
+    for (const paramsObjKey in paramsObj)
         searchParams.append(paramsObjKey, paramsObj[paramsObjKey]);
 
     return `${BASE_URL}${endpoint}?${searchParams.toString()}`;

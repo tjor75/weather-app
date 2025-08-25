@@ -6,8 +6,8 @@ export const getWeatherByCoordAsync = async (coord) => {
     return await response.json();
 }
 
-export const getWeatherByCityAsync = async (city) => {
-    const response = await fetchEndpoint("/data/2.5/weather", { q: city });
+export const getWeatherByQueryAsync = async (query) => {
+    const response = await fetchEndpoint("/data/2.5/weather", { q: query });
     return await response.json();
 }
 
@@ -18,7 +18,7 @@ export const getWeatherBySearchQueryAsync = async (searchQuery) => {
     if (coord !== null)
         weather = await getWeatherByCoordAsync(coord);
     else
-        weather = await getWeatherByCityAsync(searchQuery);
+        weather = await getWeatherByQueryAsync(searchQuery);
 
     return weather;
 }
