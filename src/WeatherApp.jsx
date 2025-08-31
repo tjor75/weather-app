@@ -15,7 +15,12 @@ function WeatherApp() {
   useEffect(() => {
     const fetchData = async () => {
       const newCurrentWeather = await owmService.getWeatherByQueryAsync(selectedCity);
+      const newHourlyForecast = await owmService.getHourlyForecastByQueryAsync(selectedCity);
+      const newDailyForecast  = await owmService.getDailyForecastByQueryAsync(selectedCity);
+
       setCurrentWeather(newCurrentWeather);
+      setHourlyForecast(newHourlyForecast);
+      setDailyForecast(newDailyForecast);
     };
     fetchData();
   }, [selectedCity]);

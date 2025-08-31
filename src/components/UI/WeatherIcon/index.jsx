@@ -5,6 +5,7 @@ import snow from "../../../assets/icons/snow.png";
 import atmosphere from "../../../assets/icons/atmosphere.png";
 import clear from "../../../assets/icons/clear.png";
 import clouds from "../../../assets/icons/clouds.png";
+import "./WeatherIcon.css";
 
 function WeatherIcon({ weatherId }) {
     const getWeatherIcon = (weatherId) => {

@@ -1,0 +1,42 @@
+.current-weather {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.current-weather > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 16px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+.current-weather p {
+    margin: 4px 0;
+}
+
+.current-weather .temperature {
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.location-time {
+    text-align: right;
+}
+
+.weather-info, .wind-info {
+    display: flex;
+}
+.weather-info img {
+    align-items: center;
+    margin-bottom: 8px;
+    width: 40px;
+    height: 40px;
+}
+.wind-info img {
+    margin-right: 8px;
+    width: 24px;
+    height: 24px;
+}
