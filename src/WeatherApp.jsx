@@ -12,16 +12,28 @@ function WeatherApp() {
   const [dailyForecast, setDailyForecast] = useState([]);
   const [selectedCity, setSelectedCity] = useState("Buenos Aires, AR");
   const [searchQuery, setSearchQuery] = useState("");
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      const newCurrentWeather = await owmService.getWeatherByQueryAsync(selectedCity);
-      const newHourlyForecast = await owmService.getHourlyForecastByQueryAsync(selectedCity);
-      const newDailyForecast  = await owmService.getDailyForecastByQueryAsync(selectedCity);
+      setLoading(true);
+      setError(null);
+      
+      try {
+        const newCurrentWeather = await owmService.getWeatherByQueryAsync(selectedCity);
+        const newHourlyForecast = await owmService.getHourlyForecastByQueryAsync(selectedCity);
+        const newDailyForecast  = await owmService.getDailyForecastByQueryAsync(selectedCity);
 
-      setCurrentWeather(newCurrentWeather);
-      setHourlyForecast(newHourlyForecast);
-      setDailyForecast(newDailyForecast);
+        setCurrentWeather(newCurrentWeather);
+        setHourlyForecast(newHourlyForecast);
+        setDailyForecast(newDailyForecast);
+      } catch (err) {
+        console.error('Error fetching weather data:', err);
+        setError(err.message || 'Failed to fetch weather data. Please try again.');
+      } finally {
+        setLoading(false);
+      }
     };
     fetchData();
   }, [selectedCity]);
@@ -41,6 +53,19 @@ function WeatherApp() {
   const handleSearch = () => {
     // Trigger city search
   };
+
+  const handleRetry = () => {
+    setError(null);
+    // This will trigger the useEffect to refetch data
+  };
+
+  if (error) {
+    return (
+      <div className="weather-app">
+        <p className="card fatal-error">{error}</p>
+      </div>
+    );
+  }
 
   return (
     <div className="weather-app">
