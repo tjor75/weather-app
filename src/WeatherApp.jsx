@@ -4,6 +4,7 @@ import CurrentWeather from "./components/CurrentWeather/index.jsx";
 import HourlyForecast from "./components/HourlyForecast/index.jsx";
 import "react-loading-skeleton/dist/skeleton.css";
 import Footer from "./components/UI/Footer/index.jsx";
+import "./WeatherApp.css";
 
 function WeatherApp() {
   const [currentWeather, setCurrentWeather] = useState(null);
