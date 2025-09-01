@@ -14,5 +14,11 @@ const generateURL = async (endpoint, paramsObj) => {
 
 export const fetchEndpoint = async (endpoint, paramsObj) => {
     const url = await generateURL(endpoint, paramsObj);
-    return await fetch(url);
+    const response = await fetch(url);
+    const json = await response.json();
+
+    if (!response.ok)
+        throw Error(json.message)
+
+    return json;
 };

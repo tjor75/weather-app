@@ -21,9 +21,9 @@ function WeatherApp() {
       setError(null);
       
       try {
-        const newCurrentWeather = await owmService.getWeatherByQueryAsync(selectedCity);
-        const newHourlyForecast = await owmService.getHourlyForecastByQueryAsync(selectedCity);
-        const newDailyForecast  = await owmService.getDailyForecastByQueryAsync(selectedCity);
+        const newCurrentWeather = await owmService.getWeatherBySearchQueryAsync(selectedCity);
+        const newHourlyForecast = await owmService.getHourlyForecastByCoordAsync(newCurrentWeather.coord);
+        const newDailyForecast  = await owmService.getDailyForecastByCoordAsync(newCurrentWeather.coord);
 
         setCurrentWeather(newCurrentWeather);
         setHourlyForecast(newHourlyForecast);
