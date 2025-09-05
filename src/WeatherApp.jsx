@@ -5,6 +5,7 @@ import HourlyForecast from "./components/HourlyForecast/index.jsx";
 import "react-loading-skeleton/dist/skeleton.css";
 import Footer from "./components/UI/Footer/index.jsx";
 import "./WeatherApp.css";
+import { searchLastTodayByUnix } from "./helpers/search-helper.js";
 
 function WeatherApp() {
   const [currentWeather, setCurrentWeather] = useState(null);
@@ -22,14 +23,13 @@ function WeatherApp() {
       
       try {
         const newCurrentWeather = await owmService.getWeatherBySearchQueryAsync(selectedCity);
-        const newHourlyForecast = await owmService.getHourlyForecastByCoordAsync(newCurrentWeather.coord);
-        const newDailyForecast  = await owmService.getDailyForecastByCoordAsync(newCurrentWeather.coord);
+        const newDailyForecast = await owmService.getDailyForecastByCoordAsync(newCurrentWeather.coord);
+        const lastTodayForecastPos = searchLastTodayByUnix(newDailyForecast.list);
 
         setCurrentWeather(newCurrentWeather);
-        setHourlyForecast(newHourlyForecast);
-        setDailyForecast(newDailyForecast);
+        setHourlyForecast(newDailyForecast.list.slice(0, lastTodayForecastPos));
+        setDailyForecast(newDailyForecast.list.slice(lastTodayForecastPos));
       } catch (err) {
-        console.error('Error fetching weather data:', err);
         setError(err.message || 'Failed to fetch weather data. Please try again.');
       } finally {
         setLoading(false);

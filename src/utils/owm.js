@@ -14,11 +14,17 @@ const generateURL = async (endpoint, paramsObj) => {
 
 export const fetchEndpoint = async (endpoint, paramsObj) => {
     const url = await generateURL(endpoint, paramsObj);
-    const response = await fetch(url);
-    const json = await response.json();
+    
+    try {
+        const response = await fetch(url);
+        const json = await response.json();
 
-    if (!response.ok)
-        throw Error(json.message)
+        if (!response.ok)
+            throw Error(json.message);
 
-    return json;
+        return json;
+    } catch (error) {
+        console.error('Error fetching weather data:', error);
+        throw Error(error.message);
+    }
 };

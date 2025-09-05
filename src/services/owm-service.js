@@ -18,11 +18,9 @@ export const getWeatherBySearchQueryAsync = async (searchQuery) => {
     else
         weather = await getWeatherByQueryAsync(searchQuery);
 
-    return weather;
-}
+    console.log(weather);
 
-export const getHourlyForecastByCoordAsync = async (coord) => {
-    return await fetchEndpoint("/data/2.5/forecast/daily", coord);
+    return weather;
 }
 
 export const getDailyForecastByCoordAsync = async (coord) => {
