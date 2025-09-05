@@ -2,41 +2,54 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 16px;
 }
 .current-weather > div {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    padding: 16px;
-    background-color: #f0f0f0;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     width: 100%;
+    gap: 16px;
 }
 .current-weather p {
     margin: 4px 0;
 }
 
 .current-weather .temperature {
-    font-size: 3rem;
+    font-size: 5rem;
     font-weight: bold;
 }
 
 .location-time {
     text-align: right;
 }
+.location-time :first-child {
+    font-size: 2rem;
+    font-weight: 500;
+}
 
-.weather-info, .wind-info {
+
+.sky-info {
+    align-items: center;
+}
+.sky-info > div {
     display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.weather-info {
+    color: #828d9f;
 }
 .weather-info img {
-    align-items: center;
     margin-bottom: 8px;
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
+}
+.wind-info {
+    display: flex;
+    font-size: 20px;
 }
 .wind-info img {
     margin-right: 8px;
-    width: 24px;
-    height: 24px;
+    width: 30px;
+    height: 30px;
 }

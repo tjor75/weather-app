@@ -24,7 +24,7 @@ function WeatherApp() {
       try {
         const newCurrentWeather = await owmService.getWeatherBySearchQueryAsync(selectedCity);
         const newDailyForecast = await owmService.getDailyForecastByCoordAsync(newCurrentWeather.coord);
-        const lastTodayForecastPos = searchLastTodayByUnix(newDailyForecast.list);
+        const lastTodayForecastPos = await searchLastTodayByUnix(newDailyForecast.list);
 
         setCurrentWeather(newCurrentWeather);
         setHourlyForecast(newDailyForecast.list.slice(0, lastTodayForecastPos));
@@ -68,13 +68,17 @@ function WeatherApp() {
   }
 
   return (
-    <div className="weather-app">
-      <div>
-        <CurrentWeather weatherData={currentWeather} />
-        <HourlyForecast forecastData={hourlyForecast} />
+    <>
+      {/* <Header /> */ }
+      <div className="weather-app">
+        <div>
+          <CurrentWeather weatherData={currentWeather} />
+          <HourlyForecast forecastData={hourlyForecast} />
+        </div>
+        <div></div>
       </div>
       <Footer />
-    </div>
+    </>
   );
 }
 

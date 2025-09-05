@@ -18,8 +18,6 @@ export const getWeatherBySearchQueryAsync = async (searchQuery) => {
     else
         weather = await getWeatherByQueryAsync(searchQuery);
 
-    console.log(weather);
-
     return weather;
 }
 

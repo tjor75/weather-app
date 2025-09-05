@@ -1,4 +1,4 @@
-export const searchLastTodayByUnix = (array) => {
+export const searchLastTodayByUnix = async (array) => {
     const endToday = new Date();
     endToday.setHours(23, 59, 59, 999);
 

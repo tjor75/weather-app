@@ -12,16 +12,32 @@
 }
 
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     background: #030617 url('/imgs/background.svg') no-repeat center / cover;
     color: #fff;
     font-family: 'Be_Vietnam_Pro', 'Helvetica', sans-serif;
     font-weight: normal;
+    font-size: 14px;
     margin: 0;
     padding: 0;
     min-height: 100vh;
+}
+#root {
+    padding: 3% 5%;
+}
+#root:has(.fatal-error) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.weather-app {
+    display: flex;
+}
+.weather-app > div:first-child {
+    width: 30%;
+}
+.weather-app > div:last-child {
+    width: 70%;
 }
 
 .card {
@@ -30,7 +46,7 @@ body {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    padding: 24px 36px;
+    padding: 30px 24px;
     border-radius: 18px;
     width: 100%;
 }
@@ -42,4 +58,16 @@ body {
     transform: translate(-50%, -50%);
     text-align: center;
     width: fit-content;
+}
+
+@media screen and (max-width: 768px) {
+    #root {
+        padding: 3%;
+    }
+    .weather-app > div:first-child {
+        width: 100%;
+    }
+    .weather-app > div:last-child {
+        width: 100%;
+    }
 }
