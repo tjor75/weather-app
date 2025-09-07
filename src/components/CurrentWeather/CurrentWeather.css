@@ -4,11 +4,16 @@
     align-items: center;
     gap: 16px;
 }
+.current-weather.card {
+    align-items: stretch;
+    width: 100%;
+}
 .current-weather > div {
     display: flex;
     justify-content: space-between;
     width: 100%;
     gap: 16px;
+    flex-wrap: wrap;
 }
 .current-weather p {
     margin: 4px 0;
