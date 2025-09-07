@@ -13,7 +13,6 @@
     justify-content: space-between;
     width: 100%;
     gap: 16px;
-    flex-wrap: wrap;
 }
 .current-weather p {
     margin: 4px 0;
