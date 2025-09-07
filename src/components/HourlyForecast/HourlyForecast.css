@@ -1,0 +1,12 @@
+.hourly-forecast {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+@media screen and (max-width: 1200px) {
+    .hourly-forecast {
+        justify-content: space-around;
+    }
+}

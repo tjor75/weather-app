@@ -31,13 +31,9 @@ body {
 }
 
 .weather-app {
-    display: flex;
-}
-.weather-app > div:first-child {
-    width: 30%;
-}
-.weather-app > div:last-child {
-    width: 70%;
+    display: grid;
+    grid-template-columns: 30% 70%;
+    grid-gap: 48px;
 }
 
 .card {
@@ -51,6 +47,19 @@ body {
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
+}
+.card p {
+    margin: 4px 0;
+}
+
+hr {
+    width: 100%;
+    border: 1px solid #030617;
+}
+
+.temperature {
+    font-size: 2rem;
+    font-weight: 500;
 }
 
 .fatal-error {
@@ -67,7 +76,7 @@ body {
         padding: 3%;
     }
     .weather-app {
-        flex-direction: column;
+        grid-template-columns: auto;
     }
     .weather-app > div:first-child {
         width: 100%;

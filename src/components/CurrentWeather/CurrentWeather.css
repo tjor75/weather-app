@@ -14,13 +14,9 @@
     width: 100%;
     gap: 16px;
 }
-.current-weather p {
-    margin: 4px 0;
-}
 
 .current-weather .temperature {
     font-size: 5rem;
-    font-weight: bold;
 }
 
 .location-time {

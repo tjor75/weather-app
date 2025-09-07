@@ -71,11 +71,8 @@ function WeatherApp() {
     <>
       {/* <Header /> */ }
       <div className="weather-app">
-        <div>
-          <CurrentWeather weatherData={currentWeather} />
-          <HourlyForecast forecastData={hourlyForecast} />
-        </div>
-        <div></div>
+        <CurrentWeather weatherData={currentWeather} />
+        <HourlyForecast forecastData={hourlyForecast} />
       </div>
       <Footer />
     </>

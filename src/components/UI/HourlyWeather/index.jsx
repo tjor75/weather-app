@@ -1,10 +1,15 @@
-export default function HourlyWeather({ hour, temperature, weatherId, weatherDescription }) {
+import { convertKelvinToCelsius, formatTime } from "../../../helpers/format-helper";
+import WeatherIcon from "../WeatherIcon";
+import "./HourlyWeather.css";
+
+export default function HourlyWeather({ dt, temperature, weatherId, weather }) {
     return (
-        <div className="hourly-weather">
-            <p>{hour}</p>
+        <div className="hourly-weather card">
+            <p className="hourly-dt">{formatTime(dt)}</p>
+            <hr />
             <WeatherIcon weatherId={weatherId} />
-            <p>{weatherDescription}</p>
-            <p>{temperature}</p>
+            <p>{weather}</p>
+            <p className="temperature">{convertKelvinToCelsius(temperature)}°</p>
         </div>
     );
 }
