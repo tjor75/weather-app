@@ -1,6 +1,6 @@
 import Skeleton from "react-loading-skeleton";
 import { convertKelvinToCelsius, formatTime } from "../../helpers/format-helper.js";
-import WeatherIcon from "../UI/WeatherIcon";
+import WeatherInfo from "../UI/WeatherInfo";
 import atmosphere from "../../assets/icons/atmosphere.png";
 import "./CurrentWeather.css";
 
@@ -17,10 +17,7 @@ function CurrentWeather({ weatherData }) {
             </div>
           </div>
           <div className="sky-info">
-            <div className="weather-info">
-              <WeatherIcon weatherId={weatherData.weather[0].id} />
-              <p>{weatherData.weather[0].main}</p>
-            </div>
+            <WeatherInfo weatherId={weatherData.weather[0].id} weatherMain={weatherData.weather[0].main} />
             <div className="wind-info">
               <img src={atmosphere} alt="Wind Icon" />
               <p>{weatherData.wind.speed} m/s</p>

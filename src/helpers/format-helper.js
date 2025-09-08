@@ -1,8 +1,7 @@
-export const formatTime = (timestamp) => {
-    const date = new Date(timestamp);
+export const formatTime = (unixSeconds) => {
+    const date = new Date(unixSeconds * 1000);
     const options = { hour: '2-digit', minute: '2-digit', hour12: true };
-    const formattedTime = date.toLocaleTimeString('en-US', options);
-    return formattedTime;
+    return date.toLocaleTimeString('en-US', options);
 }
 
 export const convertKelvinToCelsius = (kelvin) => {

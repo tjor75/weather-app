@@ -11,7 +11,7 @@ function HourlyForecast({ forecastData }) {
           dt={forecast.dt}
           temperature={forecast.main.temp}
           weatherId={forecast.weather[0].id}
-          weather={forecast.weather[0].main}
+          weatherMain={forecast.weather[0].main}
         />
       ))}
     </div>

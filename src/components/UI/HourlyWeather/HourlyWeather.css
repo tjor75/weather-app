@@ -1,6 +1,6 @@
 .hourly-weather.card {
-    width: 125px;
-}
-.hourly-weather .time {
-    font-weight: 200;
+    width: 108px;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
 }

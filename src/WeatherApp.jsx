@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import * as owmService from "./services/owm-service.js";
 import CurrentWeather from "./components/CurrentWeather/index.jsx";
 import HourlyForecast from "./components/HourlyForecast/index.jsx";
-import "react-loading-skeleton/dist/skeleton.css";
 import Footer from "./components/UI/Footer/index.jsx";
-import "./WeatherApp.css";
+import { NUM_HOURLY_FORECASTS } from "./constants/forecast.js";
 import { searchLastTodayByUnix } from "./helpers/search-helper.js";
+import "react-loading-skeleton/dist/skeleton.css";
+import "./WeatherApp.css";
 
 function WeatherApp() {
   const [currentWeather, setCurrentWeather] = useState(null);
@@ -25,9 +26,12 @@ function WeatherApp() {
         const newCurrentWeather = await owmService.getWeatherBySearchQueryAsync(selectedCity);
         const newDailyForecast = await owmService.getDailyForecastByCoordAsync(newCurrentWeather.coord);
         const lastTodayForecastPos = await searchLastTodayByUnix(newDailyForecast.list);
+        const nextForecastPos = await newDailyForecast.list.findIndex(forecast => (forecast.dt * 1000 > Date.now()));
+
+        console.log(lastTodayForecastPos, newDailyForecast.list.length);
 
         setCurrentWeather(newCurrentWeather);
-        setHourlyForecast(newDailyForecast.list.slice(0, lastTodayForecastPos));
+        setHourlyForecast(newDailyForecast.list.slice(nextForecastPos, nextForecastPos + NUM_HOURLY_FORECASTS));
         setDailyForecast(newDailyForecast.list.slice(lastTodayForecastPos));
       } catch (err) {
         setError(err.message || 'Failed to fetch weather data. Please try again.');

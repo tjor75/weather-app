@@ -36,20 +36,3 @@
     align-items: center;
     gap: 12px;
 }
-.weather-info {
-    color: #828d9f;
-}
-.weather-info img {
-    margin-bottom: 8px;
-    width: 60px;
-    height: 60px;
-}
-.wind-info {
-    display: flex;
-    font-size: 20px;
-}
-.wind-info img {
-    margin-right: 8px;
-    width: 30px;
-    height: 30px;
-}
