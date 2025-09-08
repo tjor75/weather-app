@@ -32,8 +32,15 @@ body {
 
 .weather-app {
     display: grid;
+    /*
+    It’s not the gap itself; the grid tracks are constrained by min-content, so
+    the right column refuses to shrink and overflows. Fix by allowing tracks
+    and children to shrink.
+    
+    grid-template-columns: 30% 70%;
+    */
     grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
-    gap: 48px;
+    gap: 48px; /* modern syntax */
 }
 
 .card {
