@@ -22,27 +22,21 @@ function WeatherApp() {
   const [selectedCity, setSelectedCity] = useState("Buenos Aires, AR");
   const [searchQuery, setSearchQuery] = useState("");
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (loading)
-      nProgress.start();
-    else
-      nProgress.done();
+    if (loading)  nProgress.start();
+    else          nProgress.done();
   }, [loading]);
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      setError(null);
       
       try {
         const newCurrentWeather = await owmService.getWeatherBySearchQueryAsync(selectedCity);
         const newDailyForecast = await owmService.getDailyForecastByCoordAsync(newCurrentWeather.coord);
-        const lastTodayForecastPos = await searchLastTodayByUnix(newDailyForecast.list);
         const nextForecastPos = await newDailyForecast.list.findIndex(forecast => (forecast.dt * 1000 > Date.now()));
-
-        console.log(lastTodayForecastPos, newDailyForecast.list.length);
 
         setCurrentWeather(newCurrentWeather);
         setHourlyForecast(newDailyForecast.list.slice(nextForecastPos, nextForecastPos + NUM_HOURLY_FORECASTS));
@@ -55,7 +49,7 @@ function WeatherApp() {
       }
     };
     fetchData();
-  }, [selectedCity]);
+  }, [selectedCity, error]);
 
   const handleCitySearch = (city) => {
     // Update selected city
@@ -82,6 +76,7 @@ function WeatherApp() {
     return (
       <div className="weather-app">
         <p className="card fatal-error">{error}</p>
+        <button onClick={handleRetry}>Retry</button>
       </div>
     );
   }
@@ -90,14 +85,10 @@ function WeatherApp() {
     <GlobalContext.Provider value={{ temperatureUnit, setTemperatureUnit }}>
       <Options />
       <div className="weather-app">
-        {!loading && (
-          <>
-            <CurrentWeather weatherData={currentWeather} />
-            <HourlyForecast forecastData={hourlyForecast} />
-            <div></div>
-            <DailyForecast forecastData={dailyForecast} />
-          </>
-        )}
+        <CurrentWeather weatherData={currentWeather} />
+        <HourlyForecast forecastData={hourlyForecast} />
+        <div></div>
+        <DailyForecast forecastData={dailyForecast} />
       </div>
       <Footer />
     </GlobalContext.Provider>

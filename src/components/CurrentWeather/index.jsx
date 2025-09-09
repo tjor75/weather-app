@@ -9,7 +9,7 @@ import "./CurrentWeather.css";
 function CurrentWeather({ weatherData }) {
     const { temperatureUnit } = useContext(GlobalContext);
     return (
-        //weatherData && (
+        weatherData && (
             <div className="current-weather card">
                 <div className="basic-current-info">
                     <p className="temperature">{convertTempFromKelvin(weatherData.main.temp, temperatureUnit)}°</p>
@@ -30,7 +30,7 @@ function CurrentWeather({ weatherData }) {
                     <p>{convertTempFromKelvin(weatherData.main.temp_min, temperatureUnit)}° to {convertTempFromKelvin(weatherData.main.temp_max, temperatureUnit)}°</p>
                 </div>
             </div>
-        //)
+        )
     );
 }
 
