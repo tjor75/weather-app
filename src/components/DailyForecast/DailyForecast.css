@@ -1,0 +1,14 @@
+.daily-forecast.card {
+    padding: 20px;
+}
+
+.daily-forecast h2 {
+    margin: 0 0 12px 0;
+    font-weight: 500;
+}
+
+.daily-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}

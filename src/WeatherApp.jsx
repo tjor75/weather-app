@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import * as owmService from "./services/owm-service.js";
 import CurrentWeather from "./components/CurrentWeather/index.jsx";
 import HourlyForecast from "./components/HourlyForecast/index.jsx";
+import DailyForecast from "./components/DailyForecast/index.jsx";
 import Footer from "./components/UI/Footer/index.jsx";
 import { NUM_HOURLY_FORECASTS } from "./constants/forecast.js";
 import { searchLastTodayByUnix } from "./helpers/search-helper.js";
+import { groupWeatherByDay } from "./helpers/format-helper.js";
 import "react-loading-skeleton/dist/skeleton.css";
 import "./WeatherApp.css";
 
@@ -32,8 +34,9 @@ function WeatherApp() {
 
         setCurrentWeather(newCurrentWeather);
         setHourlyForecast(newDailyForecast.list.slice(nextForecastPos, nextForecastPos + NUM_HOURLY_FORECASTS));
-        setDailyForecast(newDailyForecast.list.slice(lastTodayForecastPos));
+        setDailyForecast(groupWeatherByDay(newDailyForecast.list));
       } catch (err) {
+        console.error(err);
         setError(err.message || 'Failed to fetch weather data. Please try again.');
       } finally {
         setLoading(false);
@@ -77,6 +80,8 @@ function WeatherApp() {
       <div className="weather-app">
         <CurrentWeather weatherData={currentWeather} />
         <HourlyForecast forecastData={hourlyForecast} />
+        <div></div>
+        <DailyForecast forecastData={dailyForecast} />
       </div>
       <Footer />
     </>

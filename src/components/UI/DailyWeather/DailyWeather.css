@@ -1,0 +1,27 @@
+.daily-weather.card { 
+    display: grid;
+    grid-template-columns: 80px 1fr minmax(200px, 55%);
+    gap: 16px;
+}
+.daily-weather .weather-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.daily-day {
+    color: #cbd5e1;
+    font-weight: 500;
+}
+
+.daily-range {
+    display: grid;
+    grid-template-columns: 40px 1fr 40px;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+.daily-range .temp-min, .daily-range .temp-max {
+    color: #cbd5e1;
+    text-align: center;
+}

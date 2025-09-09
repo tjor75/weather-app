@@ -19,7 +19,7 @@ function CurrentWeather({ weatherData }) {
           <div className="sky-info">
             <WeatherInfo weatherId={weatherData.weather[0].id} weatherMain={weatherData.weather[0].main} />
             <div className="wind-info">
-              <img src={atmosphere} alt="Wind Icon" />
+              <img src={atmosphere} alt={weatherData.weather[0].main + " Icon"} />
               <p>{weatherData.wind.speed} m/s</p>
             </div>
           </div>

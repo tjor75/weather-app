@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Sunlight Range Bar</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<style>
+  :root {
+    --bg-page:#0b0f17;
+    --panel:#101926;
+    --track:#14202b; /* dark base for 24h track */
+    --sunlight-start:#5b7dff;
+    --sunlight-end:#8fbaff;
+    --sun-edge:#2b3b52; /* subtle edge bleed */
+    --text:#e6f6ff;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family: 'Be Vietnam Pro', system-ui, Arial, sans-serif; background:var(--bg-page); color:var(--text); min-height:100svh; display:flex; align-items:center; justify-content:center; padding:2rem; }
+  .range-card { background:var(--panel); padding:2rem 2.25rem 2.5rem; border:1px solid rgba(255,255,255,.06); border-radius:20px; box-shadow:0 8px 28px -6px rgba(0,0,0,.6), 0 2px 4px -1px rgba(0,0,0,.4); width:100%; max-width:640px; }
+  h1 { margin:0 0 1.25rem; font-size:1.15rem; font-weight:600; letter-spacing:.5px; }
+  .caption { font-size:.7rem; text-transform:uppercase; letter-spacing:.12em; margin:0 0 1.1rem; color:rgba(255,255,255,.5); font-weight:600; }
+
+  .day-row { display:flex; align-items:center; gap:1.25rem; font-size:.85rem; }
+  .day { width:70px; font-weight:600; letter-spacing:.5px; color:rgba(255,255,255,.85); }
+  .sun-times { width:130px; font-size:.65rem; line-height:1.15; color:rgba(255,255,255,.6); font-variant-numeric:tabular-nums; }
+
+  .range-bar { --h:8px; --radius:6px; --sunrise:25%; --sunset:75%; position:relative; width:300px; }
+  .range-bar__track { position:relative; height:var(--h); background:var(--track); border-radius:var(--radius); overflow:hidden; box-shadow:0 0 0 1px rgba(255,255,255,.05) inset, 0 1px 2px rgba(0,0,0,.6) inset; }
+  /* Sunlight fill between sunrise & sunset */
+  .range-bar__sunlight { position:absolute; top:0; bottom:0; left:calc(var(--sunrise) * 1%); width:calc((var(--sunset) - var(--sunrise)) * 1%); background:linear-gradient(90deg,var(--sunlight-start),var(--sunlight-end)); box-shadow:0 0 0 1px rgba(255,255,255,.08) inset, 0 0 18px -4px rgba(120,164,255,.7); }
+  /* Soften edges (dawn/dusk) with pseudo elements */
+  .range-bar__sunlight:before, .range-bar__sunlight:after { content:""; position:absolute; top:0; bottom:0; width:14px; }
+  .range-bar__sunlight:before { left:-14px; background:linear-gradient(90deg,rgba(139,186,255,0) 0%, rgba(139,186,255,.35) 100%); }
+  .range-bar__sunlight:after { right:-14px; background:linear-gradient(90deg,rgba(139,186,255,.35) 0%, rgba(139,186,255,0) 100%); }
+
+  /* 24h labels under bar */
+  .range-bar__values { margin-top:.45rem; display:flex; justify-content:space-between; font-size:.6rem; font-weight:500; letter-spacing:.05em; color:rgba(255,255,255,.5); font-variant-numeric:tabular-nums; }
+  .range-bar__values span { position:relative; }
+  .range-bar__values span:after { content:""; position:absolute; left:50%; transform:translateX(-50%); top:-6px; width:1px; height:4px; background:rgba(255,255,255,.25); }
+
+  .list { display:flex; flex-direction:column; gap:1.1rem; }
+</style>
+</head>
+<body>
+  <div class="range-card">
+    <h1>Daylight (Sunrise ➜ Sunset)</h1>
+    <p class="caption">Light blue segment shows daylight duration for each day</p>
+    <div class="list" id="forecastDemo"></div>
+  </div>
+<script>
+  /* Data: sunrise & sunset local time (24h HH:MM). Handles cases where sunset is after midnight (e.g., polar day) by assuming next day if earlier than sunrise. */
+  const data = [
+    { day:'Today', sunrise:'07:28', sunset:'18:12' },
+    { day:'Fri',   sunrise:'07:26', sunset:'18:14' },
+    { day:'Sat',   sunrise:'07:24', sunset:'18:16' },
+    { day:'Sun',   sunrise:'07:21', sunset:'18:18' },
+    { day:'Mon',   sunrise:'07:19', sunset:'18:20' }
+  ];
+
+  const wrap = document.getElementById('forecastDemo');
+
+  const toMinutes = t => { const [h,m] = t.split(':').map(Number); return h*60 + m; };
+  const totalDayMinutes = 24 * 60;
+
+  data.forEach(d => {
+    let rise = toMinutes(d.sunrise);
+    let set = toMinutes(d.sunset);
+    // If set earlier than rise, treat as next day (sunset after midnight)
+    if (set <= rise) set += totalDayMinutes;
+    const daylightMinutes = set - rise;
+
+    // Percent positions relative to current 24h window
+    const sunrisePct = (rise / totalDayMinutes) * 100;
+    const sunsetPct = (set / totalDayMinutes) * 100; // may exceed 100 if spans midnight
+
+    const row = document.createElement('div');
+    row.className='day-row';
+
+    // Build base structure
+    row.innerHTML = `
+      <div class="day">${d.day}</div>
+      <div class="range-bar" role="img" aria-label="${d.day} daylight from ${d.sunrise} to ${d.sunset} (duration ${(daylightMinutes/60).toFixed(1)} hours)" style="--sunrise:${sunrisePct}; --sunset:${sunsetPct};">
+        <div class="range-bar__track">
+          <div class="range-bar__sunlight"></div>
+        </div>
+        <div class="range-bar__values"><span>00</span><span>06</span><span>12</span><span>18</span><span>24</span></div>
+      </div>
+      <div class="sun-times">Sunrise ${d.sunrise}<br>Sunset ${d.sunset}<br><span style="color:rgba(255,255,255,.65)">${(daylightMinutes/60).toFixed(1)} h light</span></div>`;
+
+    wrap.appendChild(row);
+
+    // If sunset percent > 100 (crosses midnight), we need a second segment from 0 to remainder
+    if (sunsetPct > 100) {
+      const bar = row.querySelector('.range-bar__track');
+      const second = document.createElement('div');
+      const remainder = sunsetPct - 100; // portion after midnight
+      second.className = 'range-bar__sunlight';
+      second.style.left = '0%';
+      second.style.width = remainder + '%';
+      bar.appendChild(second);
+    }
+  });
+</script>
+</body>
+</html>

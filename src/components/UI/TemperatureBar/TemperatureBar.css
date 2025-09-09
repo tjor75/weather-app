@@ -1,0 +1,16 @@
+.temperature-bar {
+  position: relative;
+  flex: 1;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.temperature-range {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, #1d4ed8, #60a5fa); /* azul oscuro → celeste */
+  border-radius: 4px;
+}
