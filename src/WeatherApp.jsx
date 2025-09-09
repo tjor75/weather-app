@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
-import * as owmService from "./services/owm-service.js";
-import CurrentWeather from "./components/CurrentWeather/index.jsx";
-import HourlyForecast from "./components/HourlyForecast/index.jsx";
-import DailyForecast from "./components/DailyForecast/index.jsx";
-import Footer from "./components/UI/Footer/index.jsx";
 import { NUM_HOURLY_FORECASTS } from "./constants/forecast.js";
 import { searchLastTodayByUnix } from "./helpers/search-helper.js";
 import { groupWeatherByDay } from "./helpers/format-helper.js";
+import { TemperatureUnit } from "./constants/temperature-unit.js";
+import * as owmService from "./services/owm-service.js";
+import { GlobalContext } from "./contexts/GlobalContext.jsx";
+import Options from "./components/Options";
+import CurrentWeather from "./components/CurrentWeather";
+import HourlyForecast from "./components/HourlyForecast";
+import DailyForecast from "./components/DailyForecast";
+import Footer from "./components/UI/Footer";
 import "react-loading-skeleton/dist/skeleton.css";
 import "./WeatherApp.css";
 
 function WeatherApp() {
+  const [temperatureUnit, setTemperatureUnit] = useState(TemperatureUnit.CELSIUS);
   const [currentWeather, setCurrentWeather] = useState(null);
   const [hourlyForecast, setHourlyForecast] = useState([]);
   const [dailyForecast, setDailyForecast] = useState([]);
@@ -75,8 +79,8 @@ function WeatherApp() {
   }
 
   return (
-    <>
-      {/* <Header /> */ }
+    <GlobalContext.Provider value={{ temperatureUnit, setTemperatureUnit }}>
+      <Options />
       <div className="weather-app">
         <CurrentWeather weatherData={currentWeather} />
         <HourlyForecast forecastData={hourlyForecast} />
@@ -84,7 +88,7 @@ function WeatherApp() {
         <DailyForecast forecastData={dailyForecast} />
       </div>
       <Footer />
-    </>
+    </GlobalContext.Provider>
   );
 }
 

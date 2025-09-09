@@ -1,16 +1,20 @@
+import { useContext } from "react";
+import { convertTempFromKelvin } from "../../helpers/temperature-helper.js";
+import { formatTime } from "../../helpers/format-helper.js";
+import { GlobalContext } from "../../contexts/GlobalContext.jsx";
 import Skeleton from "react-loading-skeleton";
-import { convertKelvinToCelsius, formatTime } from "../../helpers/format-helper.js";
 import WeatherInfo from "../UI/WeatherInfo";
 import atmosphere from "../../assets/icons/atmosphere.png";
 import "./CurrentWeather.css";
 
 function CurrentWeather({ weatherData }) {
+  const { temperatureUnit } = useContext(GlobalContext);
   return (
     <div className="current-weather card">
       {weatherData ? (
         <>
           <div className="basic-current-info">
-            <p className="temperature">{convertKelvinToCelsius(weatherData.main.temp)}°</p>
+            <p className="temperature">{convertTempFromKelvin(weatherData.main.temp, temperatureUnit)}°</p>
             <div className="location-time">
               <p>{weatherData.name}</p>
               <p>{formatTime(weatherData.dt)}</p>
@@ -24,8 +28,8 @@ function CurrentWeather({ weatherData }) {
             </div>
           </div>
           <div className="other-temperatures-info">
-            <p>Feels like: {convertKelvinToCelsius(weatherData.main.feels_like)}°C</p>
-            <p>{convertKelvinToCelsius(weatherData.main.temp_min)}° to {convertKelvinToCelsius(weatherData.main.temp_max)}°</p>
+            <p>Feels like: {convertTempFromKelvin(weatherData.main.feels_like, temperatureUnit)}°{temperatureUnit}</p>
+            <p>{convertTempFromKelvin(weatherData.main.temp_min, temperatureUnit)}° to {convertTempFromKelvin(weatherData.main.temp_max, temperatureUnit)}°</p>
           </div>
         </>
       ) : (

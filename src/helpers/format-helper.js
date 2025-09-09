@@ -1,3 +1,5 @@
+import { TemperatureUnit } from "../constants/temperature-unit";
+
 const createDateFromUnix = (unixSeconds) => {
     return new Date(unixSeconds * 1000);
 }
@@ -46,12 +48,4 @@ export const groupWeatherByDay = (list = []) => {
     }
 
     return group;
-}
-
-export const convertKelvinToCelsius = (kelvin) => {
-    return Math.round(kelvin - 273.15);
-}
-
-export const convertKelvinToFahrenheit = (kelvin) => {
-    return Math.round((kelvin - 273.15) * (9/5) + 32);
 }

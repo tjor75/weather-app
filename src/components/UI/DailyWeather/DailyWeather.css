@@ -3,7 +3,7 @@
     grid-template-columns: 80px 1fr minmax(200px, 55%);
     gap: 16px;
 }
-.daily-weather .weather-info {
+.daily-weather > div {
     display: flex;
     align-items: center;
     gap: 10px;
