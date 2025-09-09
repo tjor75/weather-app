@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import nProgress from "nprogress";
 import { NUM_HOURLY_FORECASTS } from "./constants/forecast.js";
 import { searchLastTodayByUnix } from "./helpers/search-helper.js";
 import { groupWeatherByDay } from "./helpers/format-helper.js";
@@ -10,7 +11,7 @@ import CurrentWeather from "./components/CurrentWeather";
 import HourlyForecast from "./components/HourlyForecast";
 import DailyForecast from "./components/DailyForecast";
 import Footer from "./components/UI/Footer";
-import "react-loading-skeleton/dist/skeleton.css";
+import "nprogress/nprogress.css";
 import "./WeatherApp.css";
 
 function WeatherApp() {
@@ -22,6 +23,13 @@ function WeatherApp() {
   const [searchQuery, setSearchQuery] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (loading)
+      nProgress.start();
+    else
+      nProgress.done();
+  }, [loading]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -82,10 +90,14 @@ function WeatherApp() {
     <GlobalContext.Provider value={{ temperatureUnit, setTemperatureUnit }}>
       <Options />
       <div className="weather-app">
-        <CurrentWeather weatherData={currentWeather} />
-        <HourlyForecast forecastData={hourlyForecast} />
-        <div></div>
-        <DailyForecast forecastData={dailyForecast} />
+        {!loading && (
+          <>
+            <CurrentWeather weatherData={currentWeather} />
+            <HourlyForecast forecastData={hourlyForecast} />
+            <div></div>
+            <DailyForecast forecastData={dailyForecast} />
+          </>
+        )}
       </div>
       <Footer />
     </GlobalContext.Provider>
