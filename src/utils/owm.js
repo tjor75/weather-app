@@ -1,4 +1,5 @@
 import owmConfig from "../configs/owm-config";
+import { STATUS_SEPARATOR } from "../constants/owm";
 
 const BASE_URL = "https://api.openweathermap.org";
 
@@ -20,7 +21,7 @@ export const fetchEndpoint = async (endpoint, paramsObj) => {
         const json = await response.json();
 
         if (!response.ok)
-            throw Error(json.message);
+            throw Error(response.status + STATUS_SEPARATOR + json.message);
 
         return json;
     } catch (error) {
