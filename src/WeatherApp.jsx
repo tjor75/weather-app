@@ -18,6 +18,7 @@ import "./WeatherApp.css";
 function WeatherApp() {
   const [temperatureUnit, setTemperatureUnit] = useState(TemperatureUnit.CELSIUS);
   const [currentWeather, setCurrentWeather] = useState(null);
+  const [otherCitiesWeather, setOtherCitiesWeather] = useState([]);
   const [hourlyForecast, setHourlyForecast] = useState([]);
   const [dailyForecast, setDailyForecast] = useState([]);
   const [selectedCity, setSelectedCity] = useState("Buenos Aires, AR");
@@ -29,6 +30,10 @@ function WeatherApp() {
     if (loading)  nProgress.start();
     else          nProgress.done();
   }, [loading]);
+
+  useEffect(() => {
+    document.title = currentWeather ? `${currentWeather.name}, ${currentWeather.sys.country} - ${Math.round(currentWeather.main.temp)}°${temperatureUnit === TemperatureUnit.CELSIUS ? 'C' : 'F'}` : 'Weather App';
+  }, [currentWeather, temperatureUnit]);
 
   useEffect(() => {
     const fetchData = async () => {

@@ -30,6 +30,10 @@ body {
     align-items: center;
 }
 
+button {
+    font-family: 'Be_Vietnam_Pro', 'Helvetica', sans-serif;
+}
+
 .weather-app {
     display: grid;
     /*
