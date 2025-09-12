@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import * as owmService from "../../services/owm-service.js";
+import OtherCurrentWeather from "../OtherCurrentWeather/index.jsx";
+
 function OtherCities() {
     const [otherCitiesWeather, setOtherCitiesWeather] = useState([]);
 
     useEffect(() => {
-        const otherCities = ["New York, US", "Copenhaggen, DK", "Ho Chi Minh, VN"];
+        const otherCities = ["New York, US", "Copenhagen, DK", "Ho Chi Minh, VN"];
     
         try {
           otherCities.forEach(async (city) => {
@@ -16,11 +18,19 @@ function OtherCities() {
           });
         } catch (err) {
           console.error(err);
-          //setError(err.message || 'Failed to fetch weather data for other cities.');
         }
       }, []);
 
-      return
+      return (
+        <div className="other-cities">
+          <h2>Other large cities</h2>
+            <div className="rows">
+              {otherCitiesWeather.map(city => (
+                  <OtherCurrentWeather key={city.id} weatherData={city} />
+              ))}
+            </div>
+        </div>
+      );
 }
 
 export default OtherCities;

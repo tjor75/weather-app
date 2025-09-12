@@ -49,3 +49,7 @@ export const groupWeatherByDay = (list = []) => {
 
     return group;
 }
+
+export const formatDescription = (description) => {
+    return description[0].toUpperCase() + description.slice(1);
+}

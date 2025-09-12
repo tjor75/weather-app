@@ -10,6 +10,7 @@ import FatalError from "./components/UI/FatalError";
 import Options from "./components/Options";
 import CurrentWeather from "./components/CurrentWeather";
 import HourlyForecast from "./components/HourlyForecast";
+import OtherCities from "./components/OtherCities";
 import DailyForecast from "./components/DailyForecast";
 import Footer from "./components/UI/Footer";
 import "nprogress/nprogress.css";
@@ -95,7 +96,7 @@ function WeatherApp() {
             <>
               <CurrentWeather weatherData={currentWeather} />
               <HourlyForecast forecastData={hourlyForecast} />
-              <div></div>
+              <OtherCities />
               <DailyForecast forecastData={dailyForecast} />
             </>
         }

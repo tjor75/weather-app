@@ -33,6 +33,10 @@ body {
 button {
     font-family: 'Be_Vietnam_Pro', 'Helvetica', sans-serif;
 }
+h1, h2, h3 {
+    margin: 0 0 12px 0;
+    font-weight: 500;
+}
 
 .weather-app {
     display: grid;
@@ -45,6 +49,12 @@ button {
     */
     grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
     gap: 48px; /* modern syntax */
+}
+
+.rows {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .card {

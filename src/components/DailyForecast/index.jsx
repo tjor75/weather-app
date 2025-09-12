@@ -15,7 +15,7 @@ function DailyForecast({ forecastData = {} }) {
         Object.keys(forecastData).length > 0 && (
             <div className="daily-forecast">
                 <h2>5-day forecast</h2>
-                <div className="daily-rows">
+                <div className="rows">
                     {Object.keys(forecastData).map((dayLabel) => {
                         const dayData = forecastData[dayLabel];
                         return (
