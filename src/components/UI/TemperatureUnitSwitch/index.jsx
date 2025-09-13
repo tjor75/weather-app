@@ -1,7 +1,6 @@
 import { useContext, useCallback } from "react";
 import { GlobalContext } from "../../../contexts/GlobalContext";
 import { TemperatureUnit } from "../../../constants/temperature-unit";
-import "./TemperatureUnitSwitch.css";
 
 export default function TemperatureUnitSwitch({ className = "" }) {
   const { temperatureUnit, setTemperatureUnit } = useContext(GlobalContext);
@@ -13,7 +12,7 @@ export default function TemperatureUnitSwitch({ className = "" }) {
   }, [temperatureUnit, setTemperatureUnit]);
 
   return (
-    <div className={`temperature-unit-switch ${className}`}>      
+    <div className={`switch ${className}`}>      
       {Object.keys(TemperatureUnit).map((unit) => (
         <button 
           key={TemperatureUnit[unit]} 

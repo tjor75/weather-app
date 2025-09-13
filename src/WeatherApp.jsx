@@ -20,6 +20,8 @@ import "./WeatherApp.css";
 
 function WeatherApp() {
   const [temperatureUnit, setTemperatureUnit] = useState("");
+  // Theme: 'dark' | 'light'
+  const [theme, setTheme] = useState("");
   const [currentWeather, setCurrentWeather] = useState(null);
   const [hourlyForecast, setHourlyForecast] = useState([]);
   const [dailyForecast, setDailyForecast] = useState([]);
@@ -53,6 +55,23 @@ function WeatherApp() {
     }
     localStorage.setItem("temperatureUnit", temperatureUnit);
   }, [temperatureUnit]);
+
+  // Initialize theme from localStorage or prefers-color-scheme, then persist and apply to document root
+  useEffect(() => {
+    if (!theme) {
+      const stored = localStorage.getItem("theme");
+      if (stored === "DARK" || stored === "LIGHT") {
+        setTheme(stored);
+      } else {
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        setTheme(prefersDark ? "DARK" : "LIGHT");
+      }
+      return;
+    }
+    localStorage.setItem("theme", theme);
+    // Apply as data attribute for easy theming overrides
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -107,7 +126,7 @@ function WeatherApp() {
   }
 
   return (
-    <GlobalContext.Provider value={{ temperatureUnit, setTemperatureUnit, setSelectedCity, increasePending, decreasePending }}>
+    <GlobalContext.Provider value={{ temperatureUnit, setTemperatureUnit, theme, setTheme, setSelectedCity, increasePending, decreasePending }}>
       <SearchContext.Provider value={{ searchQuery, setSearchQuery }}>
         <Options />
       </SearchContext.Provider>

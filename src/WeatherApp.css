@@ -12,7 +12,7 @@
 }
 
 body {
-    background: #030617 url('/imgs/background.svg') no-repeat center / cover;
+    background: #030617 url('/imgs/background-dark.svg') no-repeat center / cover;
     color: #fff;
     font-family: 'Be_Vietnam_Pro', 'Helvetica', sans-serif;
     font-weight: normal;
@@ -92,6 +92,58 @@ hr {
     width: fit-content;
 }
 
+
+/* Switch */
+.switch {  
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: #111827; /* dark pill background */
+  padding: 4px;
+  border-radius: 999px;
+  position: relative;
+  font-size: 28px;
+}
+.switch button {
+  position: relative;
+  cursor: pointer;
+  background: transparent;
+  color: #9ca3af; /* gray */
+  font-weight: 600;
+  border: none;
+  padding: 6px 9px;
+  line-height: 1;
+  border-radius: 999px;
+  transition: color 0.25s ease;
+  z-index: 1;
+}
+.switch button.active {
+  color: #000;
+}
+/* Sliding indicator */
+.switch::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  width: 36px;
+  border-radius: 999px;
+  background: #fff;
+  transform: translateX(var(--pill-x, 0%));
+  transition: transform 0.35s cubic-bezier(.65,.05,.36,1);
+  z-index: 0;
+}
+/* Adjust the transform based on active unit using data attribute approach if desired */
+.switch:has(button.active:last-child)::before {
+  --pill-x: 100%;
+}
+
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .switch::before { transition: none; }
+}
+
 @media screen and (max-width: 1200px) {
     #root {
         padding: 3%;
@@ -105,4 +157,23 @@ hr {
     .weather-app > div:last-child {
         width: 100%;
     }
+}
+
+/* Light theme overrides */
+:root[data-theme="LIGHT"] body {
+    background: #f3f4f6 url('/imgs/background-light.svg') no-repeat center / cover;
+    color: #111827;
+}
+:root[data-theme="LIGHT"] .card {
+    background: #fff;
+    color: #111827;
+}
+:root[data-theme="LIGHT"] hr {
+    border-color: #e5e7eb;
+}
+:root[data-theme="LIGHT"] .switch {
+    background: #e5e7eb;
+}
+:root[data-theme="LIGHT"] .switch::before {
+    background: #fff;
 }

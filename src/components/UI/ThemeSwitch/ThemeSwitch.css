@@ -1,0 +1,39 @@
+/* Reuse TemperatureUnitSwitch look */
+.theme-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: #111827;
+  padding: 4px;
+  border-radius: 999px;
+  position: relative;
+  font-size: 14px;
+}
+.theme-switch button {
+  position: relative;
+  cursor: pointer;
+  background: transparent;
+  color: #9ca3af;
+  font-weight: 600;
+  border: none;
+  padding: 6px 10px;
+  line-height: 1;
+  border-radius: 999px;
+  transition: color 0.25s ease;
+}
+.theme-switch button.active { color: #000; }
+.theme-switch::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  width: 48px;
+  border-radius: 999px;
+  background: #fff;
+  transform: translateX(var(--pill-x, 0%));
+  transition: transform 0.35s cubic-bezier(.65,.05,.36,1);
+  z-index: 0;
+}
+.theme-switch:has(button.active:last-child)::before { --pill-x: 100%; }
+.theme-switch button { z-index: 1; }
+@media (prefers-reduced-motion: reduce) { .theme-switch::before { transition: none; } }
