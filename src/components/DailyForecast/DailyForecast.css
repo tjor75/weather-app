@@ -1,3 +1,7 @@
 .daily-forecast.card {
     padding: 20px;
 }
+
+.daily-weather * {
+    margin: 0;
+}

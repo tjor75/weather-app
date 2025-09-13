@@ -14,24 +14,16 @@ export default function TemperatureUnitSwitch({ className = "" }) {
 
   return (
     <div className={`temperature-unit-switch ${className}`}>      
-      <button
-        type="button"
-        aria-label="Show temperatures in Celsius"
-        aria-pressed={temperatureUnit === TemperatureUnit.CELSIUS}
-        className={temperatureUnit === TemperatureUnit.CELSIUS ? "active" : ""}
-        onClick={() => handleClick(TemperatureUnit.CELSIUS)}
-      >
-        °C
-      </button>
-      <button
-        type="button"
-        aria-label="Show temperatures in Fahrenheit"
-        aria-pressed={temperatureUnit === TemperatureUnit.FAHRENHEIT}
-        className={temperatureUnit === TemperatureUnit.FAHRENHEIT ? "active" : ""}
-        onClick={() => handleClick(TemperatureUnit.FAHRENHEIT)}
-      >
-        °F
-      </button>
+      {Object.keys(TemperatureUnit).map((unit) => (
+        <button 
+          key={TemperatureUnit[unit]} 
+          className={TemperatureUnit[unit] === temperatureUnit ? "active" : ""}
+          onClick={() => handleClick(TemperatureUnit[unit])}
+          title={`Switch to ${unit}`}
+        >
+          °{TemperatureUnit[unit]}
+        </button>
+      ))}
     </div>
   );
 }

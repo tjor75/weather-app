@@ -7,11 +7,15 @@ import WeatherIcon from "../UI/WeatherIcon";
 import "./OtherCurrentWeather.css";
 
 function OtherCurrentWeather({ weatherData }) {
-    const { temperatureUnit } = useContext(GlobalContext);
+    const { setSelectedCity, temperatureUnit } = useContext(GlobalContext);
+
+    if (!weatherData)
+        return <div></div>;
 
     return (
-        weatherData && (
-            <div className="other-current-weather card">
+            <div className="other-current-weather card" onClick={() => {
+                setSelectedCity(`${weatherData.name}, ${weatherData.sys.country}`);
+            }}>
                 <div>
                     <p className="weather-country">{getCountry(weatherData.sys.country).name}</p>
                     <div className="location-time"><h3 className="weather-city">{weatherData.name}</h3></div>
@@ -22,7 +26,6 @@ function OtherCurrentWeather({ weatherData }) {
                     <p className="temperature">{convertTempFromKelvin(weatherData.main.temp, temperatureUnit)}°</p>
                 </div>
             </div>
-        )
     );
 }
 

@@ -3,6 +3,7 @@
     flex-direction: row;
     justify-content: space-between;
     gap: 16px;
+    cursor: pointer;
     width: 100%;
 }
 .other-current-weather.card > div {
