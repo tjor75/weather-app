@@ -1,12 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { otherCities } from "../../constants/default.js";
 import * as owmService from "../../services/owm-service.js";
-import OtherCurrentWeather from "../OtherCurrentWeather/index.jsx";
+import { GlobalContext } from "../../contexts/GlobalContext.jsx";
+import OtherCurrentWeather from "../OtherCurrentWeather";
 
 function OtherCities() {
     const [otherCitiesWeather, setOtherCitiesWeather] = useState([]);
+    const { increasePending, decreasePending } = useContext(GlobalContext);
     
     useEffect(() => {
-        const otherCities = ["New York, US", "Copenhagen, DK", "Ho Chi Minh, VN"];
+        increasePending();
         
         try {
             otherCities.forEach(async (city) => {
@@ -18,6 +21,9 @@ function OtherCities() {
             });
         } catch (err) {
             console.error(err);
+            throw err;
+        } finally {
+            decreasePending();
         }
     }, []);
     

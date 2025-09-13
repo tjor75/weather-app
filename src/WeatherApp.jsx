@@ -21,22 +21,22 @@ import "./WeatherApp.css";
 function WeatherApp() {
   const [temperatureUnit, setTemperatureUnit] = useState("");
   const [currentWeather, setCurrentWeather] = useState(null);
-  const [otherCitiesWeather, setOtherCitiesWeather] = useState([]);
   const [hourlyForecast, setHourlyForecast] = useState([]);
   const [dailyForecast, setDailyForecast] = useState([]);
   const [selectedCity, setSelectedCity] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [pending, setPending] = useState(0);
 
   const { selectedCityLocation } = useParams();
-
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (loading)  nProgress.start();
-    else          nProgress.done();
-  }, [loading]);
+    if (pending === 1)      nProgress.start();
+    else if (pending === 0) nProgress.done();
+    
+    if (pending > 0)        nProgress.inc();
+  }, [pending]);
 
   useEffect(() => {
     if (selectedCityLocation && selectedCityLocation !== selectedCity)
@@ -56,7 +56,7 @@ function WeatherApp() {
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
+      increasePending();
       setError("");
       
       try {
@@ -77,7 +77,7 @@ function WeatherApp() {
         console.error(err);
         setError(err.message || 'Failed to fetch weather data. Please try again.');
       } finally {
-        setLoading(false);
+        decreasePending();
       }
     };
 
@@ -89,13 +89,8 @@ function WeatherApp() {
     }
   }, [selectedCity]);
 
-  const handleCitySearch = (city) => {
-    // Update selected city
-  };
-
-  const handleTemperatureUnitChange = (unit) => {
-    // Update temperature unit (Celsius or Fahrenheit)
-  };
+  const increasePending = () => setPending(p => p + 1);
+  const decreasePending = () => setPending(p => p - 1);
 
   const handleRetry = () => {
     setError("");
@@ -112,7 +107,7 @@ function WeatherApp() {
   }
 
   return (
-    <GlobalContext.Provider value={{ temperatureUnit, setTemperatureUnit, setSelectedCity }}>
+    <GlobalContext.Provider value={{ temperatureUnit, setTemperatureUnit, setSelectedCity, increasePending, decreasePending }}>
       <SearchContext.Provider value={{ searchQuery, setSearchQuery }}>
         <Options />
       </SearchContext.Provider>
