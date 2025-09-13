@@ -19,7 +19,7 @@ import "nprogress/nprogress.css";
 import "./WeatherApp.css";
 
 function WeatherApp() {
-  const [temperatureUnit, setTemperatureUnit] = useState("");
+  const [temperatureUnit, setTemperatureUnit] = useState(null);
   // Theme: 'dark' | 'light'
   const [theme, setTheme] = useState("");
   const [currentWeather, setCurrentWeather] = useState(null);
@@ -53,7 +53,7 @@ function WeatherApp() {
     if (!temperatureUnit) {
       setTemperatureUnit(localStorage.getItem("temperatureUnit") ?? DEFAULT_TEMPERATURE_UNIT);
     }
-    localStorage.setItem("temperatureUnit", temperatureUnit);
+    localStorage.setItem("temperatureUnit", temperatureUnit ?? DEFAULT_TEMPERATURE_UNIT);
   }, [temperatureUnit]);
 
   // Initialize theme from localStorage or prefers-color-scheme, then persist and apply to document root

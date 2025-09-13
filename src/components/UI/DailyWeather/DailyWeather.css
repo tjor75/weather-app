@@ -2,11 +2,13 @@
     display: grid;
     grid-template-columns: 80px 1fr minmax(200px, 55%);
     gap: 16px;
+    max-width: 100%;
 }
 .daily-weather > div {
     display: flex;
     align-items: center;
     gap: 10px;
+    min-width: 0; /* allow shrinking/wrapping inside grid */
 }
 
 .daily-day {
@@ -24,4 +26,22 @@
 .daily-range .temp-min, .daily-range .temp-max {
     color: #cbd5e1;
     text-align: center;
+}
+
+/* Tablet: collapse to 2 columns */
+@media (max-width: 900px) {
+  .daily-weather.card {
+    grid-template-rows: auto;
+  }
+}
+
+/* Mobile: stack everything */
+@media (max-width: 600px) {
+  .daily-weather.card {
+    grid-template-columns: 1fr;
+  }
+  .daily-range {
+    grid-template-columns: min-content 1fr min-content; /* keep ends tight */
+    width: 100%;
+  }
 }
