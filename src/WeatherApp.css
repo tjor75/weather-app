@@ -78,22 +78,7 @@ hr {
     border: 1px solid #030617;
 }
 
-.temperature {
-    font-size: 32px;
-    font-weight: 500;
-}
 
-.fatal-error {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    width: fit-content;
-}
-
-
-/* Switch */
 .switch {  
   display: inline-flex;
   align-items: center;
@@ -136,6 +121,27 @@ hr {
 /* Adjust the transform based on active unit using data attribute approach if desired */
 .switch:has(button.active:last-child)::before {
   --pill-x: 100%;
+}
+
+
+.temperature {
+    font-size: 32px;
+    font-weight: 500;
+}
+
+.location-time :first-child {
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+
+.fatal-error {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: fit-content;
 }
 
 

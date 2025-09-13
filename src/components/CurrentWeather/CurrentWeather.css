@@ -19,12 +19,8 @@
     font-size: 80px;
 }
 
-.location-time {
+.current-weather .location-time {
     text-align: right;
-}
-.location-time :first-child {
-    font-size: 2rem;
-    font-weight: 500;
 }
 
 

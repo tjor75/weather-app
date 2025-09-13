@@ -56,7 +56,6 @@ function WeatherApp() {
     localStorage.setItem("temperatureUnit", temperatureUnit ?? DEFAULT_TEMPERATURE_UNIT);
   }, [temperatureUnit]);
 
-  // Initialize theme from localStorage or prefers-color-scheme, then persist and apply to document root
   useEffect(() => {
     if (!theme) {
       const stored = localStorage.getItem("theme");
@@ -69,7 +68,6 @@ function WeatherApp() {
       return;
     }
     localStorage.setItem("theme", theme);
-    // Apply as data attribute for easy theming overrides
     document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
 
@@ -101,6 +99,7 @@ function WeatherApp() {
     };
 
     if (selectedCity) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       if (selectedCity !== selectedCityLocation) {
         navigate(`/${encodeURIComponent(selectedCity)}`, { replace: true });
       }

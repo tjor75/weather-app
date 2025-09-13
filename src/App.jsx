@@ -8,11 +8,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<WeatherApp />} />
                 <Route path="/:selectedCityLocation" element={<WeatherApp />} />
-                {/* Catch-all fallback */}
-                <Route
-                    path="*"
-                    element={<Navigate to={`/`} replace />}
-                />
+                <Route path="*" element={<Navigate to={`/`} replace />} />
             </Routes>
         </HashRouter>
     );
