@@ -41,7 +41,7 @@ function WeatherApp() {
   }, [pending]);
 
   useEffect(() => {
-    if (selectedCityLocation && selectedCityLocation !== selectedCity)
+    if (selectedCityLocation !== selectedCity)
       setSelectedCity((selectedCityLocation || localStorage.getItem("selectedCity")) ?? DEFAULT_SELECTED_CITY);
   }, [selectedCityLocation]);
 

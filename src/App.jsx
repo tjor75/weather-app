@@ -6,16 +6,12 @@ function App() {
     return (
         <HashRouter>
             <Routes>
-                {/* Redirect root to default city (URL-encoded) */}
-                <Route
-                    path="/"
-                    element={<Navigate to={`/${encodeURIComponent(DEFAULT_SELECTED_CITY)}`} replace />}
-                />
+                <Route path="/" element={<WeatherApp />} />
                 <Route path="/:selectedCityLocation" element={<WeatherApp />} />
                 {/* Catch-all fallback */}
                 <Route
                     path="*"
-                    element={<Navigate to={`/${encodeURIComponent(DEFAULT_SELECTED_CITY)}`} replace />}
+                    element={<Navigate to={`/`} replace />}
                 />
             </Routes>
         </HashRouter>
