@@ -28,17 +28,27 @@
     text-align: center;
 }
 
-/* Tablet: collapse to 2 columns */
 @media (max-width: 900px) {
   .daily-weather.card {
     grid-template-rows: auto;
   }
 }
 
-/* Mobile: stack everything */
 @media (max-width: 600px) {
   .daily-weather.card {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .daily-weather h3 {
+    width: 40%;
+  }
+  .daily-weather .weather-info {
+    width: 50%;
+    justify-content: right;
+  }
+  .daily-weather > :last-child {
+    width: 100%;
   }
   .daily-range {
     grid-template-columns: min-content 1fr min-content; /* keep ends tight */
