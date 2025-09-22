@@ -1,0 +1,21 @@
+
+.about-modal .modal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+    width: auto;
+}
+.about-modal img {
+    width: 150px;
+    height: 150px;
+}
+.about-modal .assets-from :last-child {
+    display: inline-flex;
+    gap: 5px;
+}
+
+:root[data-theme="LIGHT"] .about-btn {
+    background: #fff;
+    border: solid 4px #e5e7eb; /* gray-500 */
+}
