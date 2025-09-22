@@ -8,3 +8,7 @@
 .options > div {
     text-align: center;
 }
+.options > div > * {
+    text-align: center;
+    margin-right: 5px;
+}

@@ -14,13 +14,11 @@ import CurrentWeather from "./components/CurrentWeather";
 import HourlyForecast from "./components/HourlyForecast";
 import OtherCities from "./components/OtherCities";
 import DailyForecast from "./components/DailyForecast";
-import Footer from "./components/UI/Footer";
 import "nprogress/nprogress.css";
 import "./WeatherApp.css";
 
 function WeatherApp() {
   const [temperatureUnit, setTemperatureUnit] = useState(null);
-  // Theme: 'dark' | 'light'
   const [theme, setTheme] = useState("");
   const [currentWeather, setCurrentWeather] = useState(null);
   const [hourlyForecast, setHourlyForecast] = useState([]);
@@ -142,7 +140,6 @@ function WeatherApp() {
             </>
         }
       </div>
-      <Footer />
     </GlobalContext.Provider>
   );
 }

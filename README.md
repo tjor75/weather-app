@@ -1,12 +1,31 @@
-# React + Vite
+# Weather App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación web que muestra el clima actual de cualquier ciudad usando la API de OpenWeatherMap. Proyecto desarrollado como parte del [DevChallenges Weather App](https://devchallenges.io/challenge/weather-app).
 
-Currently, two official plugins are available:
+## Requisitos previos
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Node.js >= 18
+- Una API Key gratuita de [OpenWeatherMap](https://openweathermap.org/api)
 
-## Expanding the ESLint configuration
+## Instalación
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. Clona este repositorio o descarga los archivos.
+2. Instala las dependencias:
+   ```
+   npm install
+   ```
+
+## Configuración
+
+Crea un archivo `.env` en la raíz del proyecto y agrega tu API Key de OpenWeatherMap:
+```
+VITE_OPENWEATHER_API_KEY=tu_api_key_aquí
+```
+
+## Uso
+
+Para iniciar la aplicación en modo desarrollo ejecuta:
+```
+npm run dev
+```
+Luego abre tu navegador en [http://localhost:5173](http://localhost:5173)
